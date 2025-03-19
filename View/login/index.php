@@ -33,6 +33,7 @@ require_once __DIR__ . '/../../ConexaoBD/Conexao.php';
                 <div class ="input-group">
                     <button class="cadastrar">Cadastrar como Passageiro</button>
                 </div>
+            </form>
     </div>
 </body>
 </html>
