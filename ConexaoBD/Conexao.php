@@ -1,18 +1,22 @@
 <?php
-$host = 'localhost';
-$dbname = 'reservafacil';
-$username = 'root';
-$password = '';
+class Conexao {
+    private static $host = 'localhost';
+    private static $dbname = 'reservafacil';
+    private static $username = 'root';
+    private static $password = '';
+    private static $pdo = null;
 
-try {
-    $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8";
-    $pdo = new PDO($dsn, $username, $password);
-
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    //echo "Conexão com o banco de dados realizada com sucesso!";
-} catch (PDOException $e) {
-
-    echo "Erro de conexão: " . $e->getMessage();
+    public static function conectar() {
+        if (self::$pdo === null) {
+            try {
+                $dsn = "mysql:host=" . self::$host . ";dbname=" . self::$dbname . ";charset=utf8";
+                self::$pdo = new PDO($dsn, self::$username, self::$password);
+                self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (PDOException $e) {
+                die("Erro de conexão: " . $e->getMessage());
+            }
+        }
+        return self::$pdo;
+    }
 }
 ?>

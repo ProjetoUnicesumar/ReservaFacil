@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../ConexaoBD/Conexao.php';
+require_once(__DIR__ . '/../../ConexaoBD/Conexao.php');
 
-class Passageiro extends Conexao {
+class Passageiro {
     private $id;
     private $nome;
     private $email;
@@ -9,104 +9,103 @@ class Passageiro extends Conexao {
     private $senha;
     private $cidade;
     private $bairro;
+    private $universidade;
+    private $tipo_usuario;
+    private $conn;
 
-    // Getter e Setter para $id
-    public function getId() {
-        return $this->id;
+    public function __construct() {
+        $this->conn = Conexao::conectar();
     }
 
-    public function setId($id) {
-        $this->id = $id;
-    }
+    // Getters e Setters
+    public function getId() { return $this->id; }
+    public function setId($id) { $this->id = $id; }
 
-    // Getter e Setter para $nome
-    public function getNome() {
-        return $this->nome;
-    }
+    public function getNome() { return $this->nome; }
+    public function setNome($nome) { $this->nome = $nome; }
 
-    public function setNome($nome) {
-        $this->nome = $nome;
-    }
+    public function getEmail() { return $this->email; }
+    public function setEmail($email) { $this->email = $email; }
 
-    // Getter e Setter para $email
-    public function getEmail() {
-        return $this->email;
-    }
+    public function getTelefone() { return $this->telefone; }
+    public function setTelefone($telefone) { $this->telefone = $telefone; }
 
-    public function setEmail($email) {
-        $this->email = $email;
-    }
+    public function getSenha() { return $this->senha; }
+    public function setSenha($senha) { $this->senha = $senha; }
 
-    // Getter e Setter para $telefone
-    public function getTelefone() {
-        return $this->telefone;
-    }
+    public function getCidade() { return $this->cidade; }
+    public function setCidade($cidade) { $this->cidade = $cidade; }
 
-    public function setTelefone($telefone) {
-        $this->telefone = $telefone;
-    }
+    public function getBairro() { return $this->bairro; }
+    public function setBairro($bairro) { $this->bairro = $bairro; }
 
-    // Getter e Setter para $senha
-    public function getSenha() {
-        return $this->senha;
-    }
-
-    public function setSenha($senha) {
-        $this->senha = $senha;
-    }
-
-    // Getter e Setter para $tipoUsuario
-    public function getTipoUsuario() {
-        return $this->tipoUsuario;
-    }
-
-    public function setTipoUsuario($tipoUsuario) {
-        $this->tipoUsuario = $tipoUsuario;
-    }
-
-    // Getter e Setter para $cidade
-    public function getCidade() {
-        return $this->cidade;
-    }
-
-    public function setCidade($cidade) {
-        $this->cidade = $cidade;
-    }
-
-    // Getter e Setter para $bairro
-    public function getBairro() {
-        return $this->bairro;
-    }
-
-    public function setBairro($bairro) {
-        $this->bairro = $bairro;
-    }
-
-    public function verificaExisteEmail(){
-        $sql = "select * from cadastro_de_passageiros where email = :email";
+    public function verificaExisteEmail() {
+        $sql = "SELECT * FROM Usuarios WHERE email = :email";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':email', $this->email);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function CadastrarPassageiro(){
-        $sql = "insert into cadastro_de_passageiros (nome, email, telefone, cidade, bairro, senha) 
-        values (:nome, :email, :telefone, :cidade, :bairro, :senha)";
+    public function CadastrarPassageiro() {
+        $sql = "INSERT INTO Usuarios (nome, email, senha, telefone, cidade, bairro, universidade, tipo_usuario) 
+                VALUES (:nome, :email, :senha, :telefone, :cidade, :bairro, :universidade, :tipo_usuario)";
 
-        $smtp = $this -> conn -> prepare($sql);
         $stmt = $this->conn->prepare($sql);
+        $tipo_usuario = 3;
+        $senhaCriptografada = $this->senha;
+
         $stmt->bindParam(':nome', $this->nome);
         $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':senha', $senhaCriptografada);
         $stmt->bindParam(':telefone', $this->telefone);
         $stmt->bindParam(':cidade', $this->cidade);
         $stmt->bindParam(':bairro', $this->bairro);
-        $stmt->bindParam(':senha', $this->senha);
+        $stmt->bindParam(':universidade', $this->universidade);
+        $stmt->bindParam(':tipo_usuario', $tipo_usuario);
+
         return $stmt->execute();
     }
 
-    public function EditarPassageiro($flag){
+    public function EditarPassageiro($flag) {
+        if ($flag) {
+            $sql = "UPDATE Usuarios SET nome = :nome, email = :email, senha = :senha, telefone = :telefone, cidade = :cidade, bairro = :bairro, universidade = :universidade WHERE id = :id";
+        } else {
+            $sql = "UPDATE Usuarios SET nome = :nome, email = :email, senha = :senha, telefone = :telefone, cidade = :cidade, bairro = :bairro, universidade = :universidade WHERE id = :id";
+        }
         
-    }    
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':nome', $this->nome);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':senha', $this->senha);
+        $stmt->bindParam(':telefone', $this->telefone);
+        $stmt->bindParam(':cidade', $this->cidade);
+        $stmt->bindParam(':bairro', $this->bairro);
+        $stmt->bindParam(':universidade', $this->universidade);
+        $stmt->bindParam(':id', $this->id);
+        
+        return $stmt->execute();
+    }
+
+    public function DeletarPassageiro() {
+        $sql = "DELETE FROM Usuarios WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $this->id);
+        return $stmt->execute();
+    }
+
+    public function InativarPassageiro() {
+        $sql = "UPDATE Usuarios SET status = 0 WHERE id = :id";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':id', $this->id);
+        return $stmt->execute();
+    }
+
+    public function ListarPassageiro() {
+        $sql = "SELECT * FROM Usuarios";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
