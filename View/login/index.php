@@ -13,22 +13,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $senha = $_POST['senha'];
 
-        $stmt = $conn->prepare("SELECT * FROM Usuarios WHERE email = :email");
+        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
             if (password_verify($senha, $user['senha'])) {
-                $mensagem = "Login bem-sucedido!";
-                
                 session_start();
-                $_SESSION['user_id'] = $user['id'];
+                $mensagem = "Login bem-sucedido!";
+                $_SESSION['user_id'] = (int) $user['id_usuario'];
                 $_SESSION['user_nome'] = $user['nome'];
+                $tipos = [1 => 'admin', 2 => 'motorista', 3 => 'passageiro'];
+                $_SESSION['usuario'] = $tipos[$user['tipo_usuario']] ?? 'desconhecido';
 
-                // Redirecionamento opcional após login bem-sucedido
-                header("Location: /ReservaFacil/View/HomePassageiro/index.html");
-                exit;
+                if ($_SESSION['usuario'] === 'admin') {
+                    header("Location: /ReservaFacil/View/HomeAdmin/index.php");
+                } elseif ($_SESSION['usuario'] === 'motorista') {
+                    header("Location: /ReservaFacil/View/HomeMotorista/index.php");
+                } else {
+                    header("Location: /ReservaFacil/View/HomePassageiro/index.php");
+                }
+
+                exit();
             } else {
                 $mensagem = "Senha incorreta!";
             }
@@ -37,6 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 ?>
 
 <!DOCTYPE html>

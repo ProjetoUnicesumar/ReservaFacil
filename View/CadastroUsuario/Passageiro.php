@@ -40,7 +40,7 @@ class Passageiro {
     public function setBairro($bairro) { $this->bairro = $bairro; }
 
     public function verificaExisteEmail() {
-        $sql = "SELECT * FROM Usuarios WHERE email = :email";
+        $sql = "SELECT * FROM usuarios WHERE email = :email";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':email', $this->email);
         $stmt->execute();
@@ -48,7 +48,7 @@ class Passageiro {
     }
 
     public function CadastrarPassageiro() {
-        $sql = "INSERT INTO Usuarios (nome, email, senha, telefone, cidade, bairro, universidade, tipo_usuario) 
+        $sql = "INSERT INTO usuarios (nome, email, senha, telefone, cidade, bairro, universidade, tipo_usuario) 
                 VALUES (:nome, :email, :senha, :telefone, :cidade, :bairro, :universidade, :tipo_usuario)";
 
         $stmt = $this->conn->prepare($sql);
@@ -88,24 +88,41 @@ class Passageiro {
     }
 
     public function DeletarPassageiro() {
-        $sql = "DELETE FROM Usuarios WHERE id = :id";
+        $sql = "DELETE FROM usuarios WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $this->id);
         return $stmt->execute();
     }
 
     public function InativarPassageiro() {
-        $sql = "UPDATE Usuarios SET status = 0 WHERE id = :id";
+        $sql = "UPDATE usuarios SET status = 0 WHERE id = :id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':id', $this->id);
         return $stmt->execute();
     }
 
     public function ListarPassageiro() {
-        $sql = "SELECT * FROM Usuarios";
+        $sql = "SELECT * FROM usuarios";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function login() {
+        $sql = "SELECT id_usuario, nome, senha FROM usuarios WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->execute();
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($resultado) {
+            if (password_verify($this->senha, $resultado['senha'])) {
+                return $resultado;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
     }
 }
 ?>
