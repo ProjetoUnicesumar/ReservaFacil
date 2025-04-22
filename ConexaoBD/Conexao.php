@@ -3,7 +3,7 @@ class Conexao {
     private static $host = 'localhost';
     private static $dbname = 'reservafacil';
     private static $username = 'root';
-    private static $password = '';
+    private static $password = 'Xang_91126791';
     private static $pdo = null;
 
     public static function conectar() {

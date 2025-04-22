@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
-*{
+:root {
+    --primary-color: #1a2a6c;
+    --secondary-color: #1fa1b2;
+    --background-light: #ffffff;
+    --text-color: #333333;
+    --input-border: #ccc;
+}
+
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-body{
 
+body {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--background-light));
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -15,59 +24,70 @@ body{
     justify-content: center;
     padding: 20px;
     min-height: 100vh;
-    background-color: #f5ebeb;
 }
-.w50{
+
+.w50 {
     width: 50%;
     float: left;
     padding-right: 15px;
 }
-.box{
+
+.box {
     display: flex;
     width: 930px;
 }
-.img-box{
+
+.img-box {
     background-color: rgba(255, 255, 255, 0.5);
     width: 50%;
     display: flex;
     align-items: center;
     padding: 20px;
-    border-radius: 20px  0 0 20px;
+    border-radius: 20px 0 0 20px;
 }
-.img-box img{
+
+.img-box img {
     width: 100%;
 }
-.form-box{
+
+.form-box {
     background-color: rgb(255, 255, 255);
     backdrop-filter: blur(40px);
     padding: 30px 40px;
     width: 25%;
     border-radius: 20px 20px 20px 20px;
 }
-.form-box h2{
+
+.form-box h2 {
     font-size: 30px;
 }
-.form-box p{
+
+.form-box p {
     font-weight: bold;
-    color: #3D3D3D;
+    color: #333333; /* texto padrão */
 }
-.form-box p a{
-    color: #FF008A;
+
+.form-box p a {
+    color: #1fa1b2; /* cor secundária */
     text-decoration: none;
 }
-.form-box form{
+
+.form-box form {
     margin: 20px 0;
 }
-form .input-group{
+
+form .input-group {
     margin-bottom: 15px;
 }
-form .input-group label{
-    color: #3D3D3D;
+
+form .input-group label {
+    color: #333333; /* texto padrão */
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
 }
-form .input-group input{
+
+form .input-group input {
     width: 100%;
     height: 47px;
     background-color: rgba(180, 180, 180, 0.32);
@@ -76,16 +96,18 @@ form .input-group input{
     border: 2px solid transparent;
     padding: 15px;
     font-size: 15px;
-    color: #616161;
+    color: #616161; /* cor de texto */
     transition: all 0.4s ease;
 }
-form .input-group input:focus{
-    border-color: #ff008869;
+
+form .input-group input:focus {
+    border-color: #1fa1b2; /* cor secundária */
 }
-form .input-group button{
+
+form .input-group button {
     width: 100%;
     height: 47px;
-    background: #0866FF;
+    background: #1a2a6c; /* cor primária */
     border-radius: 20px;
     outline: none;
     border: none;
@@ -98,7 +120,7 @@ form .input-group button{
 form .input-group .cadastrar {
     width: 100%;
     height: 47px;
-    background: #42B72A;
+    background: #42B72A; /* cor secundária */
     border-radius: 20px;
     outline: none;
     border: none;
@@ -107,20 +129,22 @@ form .input-group .cadastrar {
     cursor: pointer;
     font-size: 16px;
 }
-@media (max-width:930px) {
-    .img-box{
+
+@media (max-width: 930px) {
+    .img-box {
         display: none;
     }
-    .box{
+    .box {
         width: 700px;
     }
-    .form-box{
+    .form-box {
         width: 100%;
         border-radius: 20px;
     }
 }
-@media (max-width:500px) {
-    .w50{
+
+@media (max-width: 500px) {
+    .w50 {
         width: 100%;
         padding: 0;
     }

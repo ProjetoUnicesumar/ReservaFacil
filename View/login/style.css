@@ -1,12 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+
+:root {
+    --primary-color: #1a2a6c;
+    --secondary-color: #1fa1b2;
+    --background-light: #ffffff;
+    --text-color: #333333;
+    --input-border: #ccc;
+}
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
-body{
 
+body{
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); /* Gradiente com as cores fornecidas */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -15,17 +25,19 @@ body{
     justify-content: center;
     padding: 20px;
     min-height: 100vh;
-    background-color: #f5ebeb;
 }
+
 .w50{
     width: 50%;
     float: left;
     padding-right: 15px;
 }
+
 .box{
     display: flex;
     width: 930px;
 }
+
 .img-box{
     background-color: rgba(255, 255, 255, 0.5);
     width: 50%;
@@ -34,9 +46,11 @@ body{
     padding: 20px;
     border-radius: 20px  0 0 20px;
 }
+
 .img-box img{
     width: 100%;
 }
+
 .form-box{
     background-color: rgb(255, 255, 255);
     backdrop-filter: blur(40px);
@@ -44,29 +58,36 @@ body{
     width: 25%;
     border-radius: 20px 20px 20px 20px;
 }
+
 .form-box h2{
     font-size: 30px;
 }
+
 .form-box p{
     font-weight: bold;
     color: #3D3D3D;
 }
+
 .form-box p a{
     color: #FF008A;
     text-decoration: none;
 }
+
 .form-box form{
     margin: 20px 0;
 }
+
 form .input-group{
     margin-bottom: 15px;
 }
+
 form .input-group label{
     color: #3D3D3D;
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
 }
+
 form .input-group input{
     width: 100%;
     height: 47px;
@@ -79,13 +100,15 @@ form .input-group input{
     color: #616161;
     transition: all 0.4s ease;
 }
+
 form .input-group input:focus{
     border-color: #ff008869;
 }
+
 form .input-group button{
     width: 100%;
     height: 47px;
-    background: #0866FF;
+    background:  #1a2a6c;
     border-radius: 20px;
     outline: none;
     border: none;
@@ -98,7 +121,7 @@ form .input-group button{
 form .input-group .cadastrar {
     width: 100%;
     height: 47px;
-    background: #42B72A;
+    background: #1fa1b2;
     border-radius: 20px;
     outline: none;
     border: none;
@@ -107,6 +130,7 @@ form .input-group .cadastrar {
     cursor: pointer;
     font-size: 16px;
 }
+
 @media (max-width:930px) {
     .img-box{
         display: none;
@@ -119,6 +143,7 @@ form .input-group .cadastrar {
         border-radius: 20px;
     }
 }
+
 @media (max-width:500px) {
     .w50{
         width: 100%;
