@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ida = isset($_POST['ida']) ? 1 : 0;
     $volta = isset($_POST['volta']) ? 1 : 0;
 
-    $conn = new mysqli("localhost", "root", "Xang_91126791", "reservafacil");
+    $conn = new mysqli("localhost", "root", "", "reservafacil");
 
     if ($conn->connect_error) {
         die("Conexão falhou: " . $conn->connect_error);
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $idaMarcada = 0;
         $voltaMarcada = 0;
 
-        $conn = new mysqli("localhost", "root", "Xang_91126791", "reservafacil");
+        $conn = new mysqli("localhost", "root", "", "reservafacil");
 
         if (!$conn->connect_error) {
             $stmt = $conn->prepare("SELECT ida, volta FROM reservas WHERE id_usuario = ? AND data_viagem = CURDATE()");

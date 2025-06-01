@@ -28,11 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['usuario'] = $tipos[$user['tipo_usuario']] ?? 'desconhecido';
 
                 if ($_SESSION['usuario'] === 'admin') {
-                    header("Location: /ReservaFacil/View/HomeAdmin/index.php");
+                    header("Location: /reservaFacil/ReservaFacil/View/HomeAdmin/index.php");
                 } elseif ($_SESSION['usuario'] === 'motorista') {
-                    header("Location: /ReservaFacil/View/HomeMotorista/index.php");
+                    header("Location: /reservaFacil/ReservaFacil/View/HomeMotorista/index.php");
                 } else {
-                    header("Location: /ReservaFacil/View/HomePassageiro/index.php");
+                    header("Location: /reservaFacil/ReservaFacil/View/HomePassageiro/index.php");
                 }
 
                 exit();
@@ -81,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="input-group">
-                <button class="cadastrar" type="button" onclick="window.location.href='/ReservaFacil/View/CadastroUsuario/cadastroUsuario.php'">
+                <button class="cadastrar" type="button" onclick="window.location.href='/reservaFacil/ReservaFacil/View/CadastroUsuario/cadastroUsuario.php'">
                     Cadastrar como Passageiro
                 </button>
             </div>
