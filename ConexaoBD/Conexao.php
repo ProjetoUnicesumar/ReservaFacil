@@ -1,8 +1,8 @@
 <?php
 class Conexao {
-    private static $host = 'localhost';
-    private static $dbname = 'reservafacil';
-    private static $username = 'root';
+    private static $host = '';
+    private static $dbname = '';
+    private static $username = '';
     private static $password = '';
     private static $pdo = null;
 

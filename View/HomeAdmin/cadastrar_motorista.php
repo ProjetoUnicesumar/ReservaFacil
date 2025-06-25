@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $nome = trim($_POST['nome']);
         $email = trim($_POST['email']);
         $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
-        $tipo_usuario = 2; // 2 para motorista
+        $tipo_usuario = 2;
 
         $stmtCheck = $conn->prepare("SELECT id_usuario FROM usuarios WHERE email = :email");
         $stmtCheck->bindParam(':email', $email);
@@ -105,6 +105,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .form-box a.back-link:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 768px) {
+            .form-box {
+                width: 90%;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            .form-box h2 {
+                font-size: 1.8rem;
+            }
+
+            
+        }
+
     </style>
 </head>
 <body>

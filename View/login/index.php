@@ -20,22 +20,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         if ($user) {
             if (password_verify($senha, $user['senha'])) {
-                session_start();
-                $mensagem = "Login bem-sucedido!";
-                $_SESSION['user_id'] = (int) $user['id_usuario'];
-                $_SESSION['user_nome'] = $user['nome'];
-                $tipos = [1 => 'admin', 2 => 'motorista', 3 => 'passageiro'];
-                $_SESSION['usuario'] = $tipos[$user['tipo_usuario']] ?? 'desconhecido';
+                
+                if($user['status'] == 1){
+                    session_start();
+                    session_regenerate_id(true);
 
-                if ($_SESSION['usuario'] === 'admin') {
-                    header("Location: /reservaFacil/ReservaFacil/View/HomeAdmin/index.php");
-                } elseif ($_SESSION['usuario'] === 'motorista') {
-                    header("Location: /reservaFacil/ReservaFacil/View/HomeMotorista/index.php");
+                    $mensagem = "Login bem-sucedido!";
+                    $_SESSION['user_id'] = (int) $user['id_usuario'];
+                    $_SESSION['user_nome'] = $user['nome'];
+                    $_SESSION['status'] = (int) $user['status'];
+                    $tipos = [1 => 'admin', 2 => 'motorista', 3 => 'passageiro'];
+                    $_SESSION['usuario'] = $tipos[$user['tipo_usuario']] ?? 'desconhecido';
+
+                    if ($_SESSION['usuario'] === 'admin') {
+                        header("Location: /ReservaFacil/View/HomeAdmin/index.php");
+                    } elseif ($_SESSION['usuario'] === 'motorista') {
+                        header("Location: /ReservaFacil/View/HomeMotorista/index.php");
+                    } else {
+                        header("Location: /ReservaFacil/View/HomePassageiro/index.php");
+                    }
+                    
+                    exit();
                 } else {
-                    header("Location: /reservaFacil/ReservaFacil/View/HomePassageiro/index.php");
+                    $mensagem = "Sua conta está inativa. Contate um administrador.";
                 }
-
-                exit();
+                
             } else {
                 $mensagem = "Senha incorreta!";
             }
@@ -81,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="input-group">
-                <button class="cadastrar" type="button" onclick="window.location.href='/reservaFacil/ReservaFacil/View/CadastroUsuario/cadastroUsuario.php'">
+                <button class="cadastrar" type="button" onclick="window.location.href='/ReservaFacil/View/CadastroUsuario/cadastroUsuario.php'">
                     Cadastrar como Passageiro
                 </button>
             </div>

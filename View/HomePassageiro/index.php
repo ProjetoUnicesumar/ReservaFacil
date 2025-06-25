@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ida = isset($_POST['ida']) ? 1 : 0;
     $volta = isset($_POST['volta']) ? 1 : 0;
 
-    $conn = new mysqli("localhost", "root", "", "reservafacil");
+    $conn = new mysqli("", "", "", "");
 
     if ($conn->connect_error) {
         die("Conexão falhou: " . $conn->connect_error);
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 
     <div class="container">
-        <h1>Login realizado com sucesso</h1>
+        <h1>Reserva</h1>
 
         <?php if (!empty($mensagem)) echo "<div class='message'><p>$mensagem</p></div>"; ?>
 
@@ -90,21 +90,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
         <form action="" method="post">
-            <label>
-                <input type="checkbox" name="ida" value="1"
-                    <?php if ($idaMarcada) echo 'checked'; ?>
-                    <?php if ($reservaFeita) echo 'disabled'; ?>>
-                Ida
-            </label>
-            <label>
-                <input type="checkbox" name="volta" value="1"
-                    <?php if ($voltaMarcada) echo 'checked'; ?>
-                    <?php if ($reservaFeita) echo 'disabled'; ?>>
-                Volta
-            </label>
+            <div class="checkbox-container">
+                <label>
+                    <input type="checkbox" name="ida" value="1"
+                        <?php if ($idaMarcada) echo 'checked'; ?>
+                        <?php if ($reservaFeita) echo 'disabled'; ?>>
+                    Ida
+                </label>
+                <label>
+                    <input type="checkbox" name="volta" value="1"
+                        <?php if ($voltaMarcada) echo 'checked'; ?>
+                        <?php if ($reservaFeita) echo 'disabled'; ?>>
+                    Volta
+                </label>
+            </div>
             <button type="submit" <?php if ($reservaFeita) echo 'disabled'; ?>>Enviar</button>
         </form>
     </div>
-
 </body>
 </html>

@@ -36,6 +36,9 @@ class Passageiro {
     public function getCidade() { return $this->cidade; }
     public function setCidade($cidade) { $this->cidade = $cidade; }
 
+    public function getUniversidade() { return $this->universidade; }
+    public function setUniversidade($universidade) { $this->universidade = $universidade; }
+
     public function getBairro() { return $this->bairro; }
     public function setBairro($bairro) { $this->bairro = $bairro; }
 

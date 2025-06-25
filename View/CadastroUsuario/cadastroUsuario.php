@@ -3,7 +3,7 @@ require_once(__DIR__ . '/../../ConexaoBD/Conexao.php');
 require_once(__DIR__ . '/Passageiro.php');
 
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
-    if (isset($_POST['nome'], $_POST['email'], $_POST['telefone'], $_POST['cidade'], $_POST['bairro'], $_POST['senha'], $_POST['confirmarsenha'])) {
+    if (isset($_POST['nome'], $_POST['email'], $_POST['telefone'], $_POST['cidade'], $_POST['universidade'], $_POST['bairro'], $_POST['senha'], $_POST['confirmarsenha'])) {
         
         $senha = $_POST['senha'];
         $confirmarSenha = $_POST['confirmarsenha'];
@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             $passageiro->setEmail($_POST['email']);
             $passageiro->setTelefone($_POST['telefone']);
             $passageiro->setCidade($_POST['cidade']);
+            $passageiro->setUniversidade($_POST['universidade']);
             $passageiro->setBairro($_POST['bairro']);
             $passageiro->setSenha(password_hash($senha, PASSWORD_DEFAULT));
 
@@ -27,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
                 $salvo = $passageiro->CadastrarPassageiro();
                 if ($salvo) {
                     $mensagem = "Cadastro realizado com sucesso!";
+                    header("Location: /ReservaFacil/View/login/");
+                    exit();
                 } else {
                     $erro = "Erro ao cadastrar. Tente novamente.";
                 }
@@ -50,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 <body>
     <div class="form-box">
         <h2>Criar Conta</h2>
-        <p> Já possuo um cadastro? <a href="/ReservaFacil/View/login/"> Login </a> </p>
+        <p> Já possui um cadastro? <a href="/ReservaFacil/View/login/"> Login </a> </p>
         <form action="" method="POST">
             <div class="input-group">
                 <label for="nome">Nome Completo</label>
@@ -75,6 +78,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             <div class="input-group">
                 <label for="bairro">Bairro</label>
                 <input type="text" id="bairro" name="bairro" placeholder="Digite o seu bairro" required>
+            </div>
+
+            <div class="input-group">
+                <label for="universidade">Universidade</label>
+                <input type="text" id="universidade" name="universidade" placeholder="Digite o nome da sua universidade" required>
             </div>
 
             <div class="input-group w50">
